@@ -2,6 +2,10 @@
 
 Render HTML snippets
 
+[![Build Status](https://travis-ci.org/BBC-News/alephant.png?branch=master)](https://travis-ci.org/BBC-News/alephant)
+
+[![Gem Version](https://badge.fury.io/rb/alephant.png)](http://badge.fury.io/rb/alephant)
+
 ## Installation
 
 Add this line to your application's Gemfile:
