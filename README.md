@@ -18,7 +18,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```rb
+require 'alephant/renderer'
+
+Alephant::Renderer.create('foo_template', '/base/path', 'foo_model')
+```
 
 ## Contributing
 
