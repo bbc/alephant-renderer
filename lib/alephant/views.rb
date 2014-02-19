@@ -5,7 +5,7 @@ module Alephant
     @@views = {}
 
     def self.register(klass)
-      id = self.underscorify(
+      id = ::Alephant::Views.underscorify(
         klass.name.split('::').last
       )
 
