@@ -1,5 +1,6 @@
 require 'alephant/logger'
 require 'mustache'
+require 'i18n'
 
 module Alephant
   module Renderer
@@ -12,6 +13,15 @@ module Alephant
         @template_file = template_file
         @base_path     = base_path
         @model         = model
+
+        I18n.load_path << Dir[
+          File.join(
+            File.expand_path(base_path + '../locale'),
+            '*.yml'
+          )
+        ]
+        I18n.load_path.flatten!
+        I18n.load_path.uniq!
 
         logger.info("Renderer.initialize: end with @base_path set to #{@base_path}")
       end
