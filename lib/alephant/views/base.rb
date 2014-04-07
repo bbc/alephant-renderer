@@ -1,5 +1,6 @@
 require 'mustache'
 require 'alephant/views'
+require 'hashie'
 
 require 'i18n'
 
@@ -8,7 +9,7 @@ module Alephant::Views
     attr_accessor :data, :locale
 
     def initialize(data = {})
-      @data = data
+      @data = Hashie::Mash.new data
       @locale = 'en'
     end
 
