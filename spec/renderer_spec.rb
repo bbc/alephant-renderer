@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Alephant::Renderer do
   let(:template_file) { 'foo' }
-  let(:base_path) { :base_path }
+  let(:base_path) { 'bar/baz' }
   let(:model) { :model }
 
   before(:each) do
