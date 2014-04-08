@@ -47,14 +47,10 @@ module Alephant
 
       def i18n_load_path_from(base_path)
         Dir[
-          File.expand_path(
-            File.join(
-              base_path,
-              '..',
-              'locale',
-              '*.yml'
-            )
-          )
+          File.join(
+            Pathname.new(base_path).parent,
+            'locale',
+            '*.yml')
         ]
         .flatten
         .uniq
