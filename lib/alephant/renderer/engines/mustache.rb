@@ -14,14 +14,7 @@ module Alephant
         @base_path     = base_path
         @model         = model
 
-        I18n.load_path << Dir[
-          File.join(
-            File.expand_path(base_path + '../locale'),
-            '*.yml'
-          )
-        ]
-        I18n.load_path.flatten!
-        I18n.load_path.uniq!
+        load_translations_from base_path
 
         logger.info("Renderer.initialize: end with @base_path set to #{@base_path}")
       end
@@ -41,6 +34,32 @@ module Alephant
           logger.error("Renderer.template: view template #{template_file} not found")
         end
       end
+
+      private
+
+      def load_translations_from(base_path)
+        if I18n.load_path.empty?
+          I18n.config.enforce_available_locales = false
+          I18n.load_path << i18n_load_path_from(base_path)
+          I18n.backend.load_translations
+        end
+      end
+
+      def i18n_load_path_from(base_path)
+        Dir[
+          File.expand_path(
+            File.join(
+              base_path,
+              '..',
+              'locale',
+              '*.yml'
+            )
+          )
+        ]
+        .flatten
+        .uniq
+      end
+
     end
 
   end
