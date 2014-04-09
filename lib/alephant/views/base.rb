@@ -6,19 +6,16 @@ require 'i18n'
 
 module Alephant::Views
   class Base < Mustache
-    attr_accessor :data, :locale
+    attr_accessor :data
 
-    def initialize(data = {}, locale = 'en')
+    LOCALE = :en
+
+    def initialize(data = {})
       @data = Hashie::Mash.new data
-      @locale = locale
-    end
-
-    def locale=(l)
-      @locale = l
     end
 
     def t(*args)
-      I18n.locale = @locale
+      I18n.locale = self.class::LOCALE
       lambda do |comma_delimited_args|
         args   = comma_delimited_args.strip.split ','
         key    = args.shift
