@@ -1,5 +1,6 @@
 require 'alephant/logger'
 require 'mustache'
+require 'i18n'
 
 module Alephant
   module Renderer
@@ -12,6 +13,8 @@ module Alephant
         @template_file = template_file
         @base_path     = base_path
         @model         = model
+
+        load_translations_from base_path
 
         logger.info("Renderer.initialize: end with @base_path set to #{@base_path}")
       end
@@ -31,6 +34,28 @@ module Alephant
           logger.error("Renderer.template: view template #{template_file} not found")
         end
       end
+
+      private
+
+      def load_translations_from(base_path)
+        if I18n.load_path.empty?
+          I18n.config.enforce_available_locales = false
+          I18n.load_path << i18n_load_path_from(base_path)
+          I18n.backend.load_translations
+        end
+      end
+
+      def i18n_load_path_from(base_path)
+        Dir[
+          File.join(
+            Pathname.new(base_path).parent,
+            'locale',
+            '*.yml')
+        ]
+        .flatten
+        .uniq
+      end
+
     end
 
   end
