@@ -40,7 +40,7 @@ module Alephant
       def load_translations_from(base_path)
         if I18n.load_path.empty?
           I18n.config.enforce_available_locales = false
-          I18n.load_path << i18n_load_path_from(base_path)
+          I18n.load_path = i18n_load_path_from(base_path)
           I18n.backend.load_translations
         end
       end
