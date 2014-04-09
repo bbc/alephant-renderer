@@ -14,16 +14,10 @@ module Alephant::Views
       @data = Hashie::Mash.new data
     end
 
-    def t(*args)
+    def t(key, params = {})
       I18n.locale = self.class::LOCALE
-      lambda do |comma_delimited_args|
-        args   = comma_delimited_args.strip.split ','
-        key    = args.shift
-        params = args.empty? ? {} : JSON.parse(args.first).with_indifferent_access
-        prefix = /\/([^\/]+)\./.match(template_file)[1]
-
-        I18n.translate("#{prefix}.#{key}", params)
-      end
+      prefix = /\/([^\/]+)\./.match(template_file)[1]
+      I18n.translate("#{prefix}.#{key}", params)
     end
 
     def self.inherited(subclass)
