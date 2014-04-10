@@ -1,5 +1,7 @@
 module Fixtures
   class Welsh < ::Alephant::Views::Base
-    LOCALE = :cy
+    def locale
+      :cy
+    end
   end
 end

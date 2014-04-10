@@ -8,14 +8,16 @@ module Alephant::Views
   class Base < Mustache
     attr_accessor :data
 
-    LOCALE = :en
-
     def initialize(data = {})
       @data = Hashie::Mash.new data
     end
 
+    def locale
+      :en
+    end
+
     def t(key, params = {})
-      I18n.locale = self.class::LOCALE
+      I18n.locale = locale
       prefix = /\/([^\/]+)\./.match(template_file)[1]
       I18n.translate("#{prefix}.#{key}", params)
     end
