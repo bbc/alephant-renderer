@@ -18,7 +18,7 @@ module Alephant::Views
 
     def t(key, params = {})
       I18n.locale = locale
-      prefix = /\/([^\/]+)\./.match(template_file)[1]
+      prefix = /\/([^\/]+)\.mustache/.match(template_file)[1]
       I18n.translate("#{prefix}.#{key}", params)
     end
 
