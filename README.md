@@ -120,7 +120,7 @@ You can override this behaviour and provide a default:
 
 ```ruby
 def my_translation
-	t 'key' :default => 'Some default'
+	t 'missing_key', :default => 'Some default'
 end
 
 ```
