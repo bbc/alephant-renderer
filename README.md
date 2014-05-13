@@ -76,24 +76,32 @@ class TestModel < Alephant::Views::Base
 end
 ```
 
-#### Templates
+#### Translations
 
 The best approach with the templates when translations are needed, is to have a base template then a seperate one for each lanuage that's being translated.
 
-The following tag can be used in the templates to perform a translation:
+In each view model, the following method is available for translations:
 
-```mustache
-{{#t}}text.to.translate{{/t}}
+```ruby
+t 'my_key'
 ```
 
 #### Example
 
-If we had a template called 'test_template.mustache' we would have the following:
+If we had a template called 'test_template.mustache' we would have the following in the model 'test_template.rb':
+
+>test_template.rb
+
+```ruby
+def my_translation
+	t 'key'
+end
+```
 
 >test_template.mustache
 
 ```mustache
-{{#t}}translation.key{{/t}}
+{{ my_translation }}
 ```
 
 >locale/en.yml
@@ -101,9 +109,24 @@ If we had a template called 'test_template.mustache' we would have the following
 ```yaml
 en:
     test_template:
-	    translation:
-		    key: 'A translation!'
+		key: 'A translation!'
 ```
+
+##### Default
+
+By default, if the translation key doesn't exist then the translation key is used as the translation.
+
+You can override this behaviour and provide a default:
+
+```ruby
+def my_translation
+	t 'key' :default => 'Some default'
+end
+
+```
+
+So if the key doesn't exists, then 'Some default' is the translation.
+
 
 ## Contributing
 
