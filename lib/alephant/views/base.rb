@@ -19,7 +19,8 @@ module Alephant::Views
     def t(key, params = {})
       I18n.locale = locale
       prefix = /\/([^\/]+)\.mustache/.match(template_file)[1]
-      I18n.translate("#{prefix}.#{key}", params)
+      params.merge! :default => key unless params[:default]
+      translation = I18n.translate("#{prefix}.#{key}", params)
     end
 
     def self.inherited(subclass)
