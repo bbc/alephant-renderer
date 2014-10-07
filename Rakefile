@@ -4,7 +4,7 @@ require 'rspec/core/rake_task'
 require 'bundler/gem_tasks'
 require 'alephant/renderer'
 
-RSpec::Core::RakeTask.new(:spec) do |t|
+RSpec::Core::RakeTask.new(:spec) do |task|
   task.exclude_pattern = 'spec/integration/**/*_spec.rb'
   task.rspec_opts = ['--color', '--format', 'doc', '--format=Nc']
 end
