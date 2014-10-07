@@ -1,57 +1,58 @@
 require 'spec_helper'
 
 describe Alephant::Renderer do
-  let(:template_file) { 'foo' }
-  let(:base_path) { 'bar/baz' }
-  let(:model) { :model }
+  let(:config) { 
+    {
+      renderer_id: 'foo',
+      view_path: File.join(File.dirname(__FILE__), 'fixtures/components'),
+    }
+  }
+  let(:data) { {content: 'test'} } 
 
-  before(:each) do
-    @base_path = File.join(
-      File.dirname(__FILE__),
-      'fixtures',
-      'components',
-      'foo'
-    )
-  end
+  describe '.create' do
+    context 'using valid params' do
+      let(:expected) { Alephant::Renderer::Renderer }
 
-  describe ".create(template_file, base_path, model)" do
-    it "returns a Alephant::Renderer::Mustache" do
-      expect(subject.create(template_file, base_path, model)).to be_a Alephant::Renderer::Mustache
+      specify { 
+        expect(subject.create(config, data)).to be_instance_of expected
+      } 
     end
   end
 
-  describe Alephant::Renderer::Mustache do
-    subject { Alephant::Renderer::Mustache }
-    describe "initialize(template_file, base_path, model)" do
-      context "template_file = :template_file" do
-        it "sets the attribute template_file" do
-          expect(subject.new(template_file, base_path, model).template_file).to eq(template_file)
+  describe Alephant::Renderer::Renderer do
+    subject { Alephant::Renderer::Renderer.new(config, data) }
+
+    describe '#config' do
+      specify { expect(subject.config).to eql config }
+    end
+
+    describe '#data' do
+      specify { expect(subject.data).to eql data }
+    end
+
+    describe '#views' do
+      it 'returns a Hash' do
+        expect(subject.views).to be_a Hash
+      end
+
+      context 'using three Models' do
+        it 'returns three Views in Hash' do
+          expect(subject.views.length).to eql 3
         end
       end
-    end
 
-    describe "template()" do
-      it "returns the template" do
-        instance = subject.new(template_file, @base_path, model)
-        template = instance.template
-        expect(template).to eq("{{content}}\n")
-      end
-    end
+      context 'using `bar`, `foo`, `json` models' do
+        it 'contains a View for `bar` model' do
+          expect(subject.views.key? 'bar').to be
+        end
 
-    describe "render()" do
-      it 'renders a template returned from template(template_file)' do
-        ::Mustache
-        .any_instance
-        .stub(:render)
-        .with(:template, :model)
-        .and_return(:content)
+        it 'contains a View for `foo` model' do
+          expect(subject.views.key? 'foo').to be 
+        end
 
-        Alephant::Renderer::Mustache
-        .any_instance
-        .stub(:template)
-        .and_return(:template)
-
-        expect(subject.new(template_file, @base_path, model).render).to eq(:content)
+        it 'contains a View for `json` model' do
+          expect(subject.views.key? 'json').to be
+        end
       end
     end
   end
