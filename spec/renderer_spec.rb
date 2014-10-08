@@ -22,7 +22,7 @@ describe Alephant::Renderer do
   end
 
   describe Alephant::Renderer::Renderer do
-    subject { Alephant::Renderer.create(config, data) }
+    subject { Alephant::Renderer::Renderer.new(config, data) }
 
     describe '#config' do
       specify { expect(subject.config).to eql config }
