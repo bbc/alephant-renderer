@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Alephant::Renderer do
-  subject { Alephant::Renderer }
-
   let(:config) { 
     {
       renderer_id: 'foo',
