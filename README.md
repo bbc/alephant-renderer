@@ -1,10 +1,8 @@
 # Alephant::Renderer
 
-Render HTML snippets
+Render snippets of HTML/JSON using templates.
 
-[![Build Status](https://travis-ci.org/BBC-News/alephant-renderer.png?branch=master)](https://travis-ci.org/BBC-News/alephant-renderer)
-
-[![Gem Version](https://badge.fury.io/rb/alephant-renderer.png)](http://badge.fury.io/rb/alephant-renderer)
+[![Build Status](https://travis-ci.org/BBC-News/alephant-renderer.png?branch=master)](https://travis-ci.org/BBC-News/alephant-renderer) [![Gem Version](https://badge.fury.io/rb/alephant-renderer.png)](http://badge.fury.io/rb/alephant-renderer)
 
 ## Installation
 
@@ -22,13 +20,19 @@ Or install it yourself as:
 
 ## Usage
 
-```rb
+```
 require 'alephant/renderer'
 
-Alephant::Renderer.create('foo_template', '/base/path', 'foo_model')
+# TODO - Batman!
 ```
 
+**TODO** - Add explanation of adding own views/templates
+
+**TODO** - Show examples of how alephant-publisher-request uses gem.
+
 ## Translations
+
+**TODO** - check that this section is still relevant.
 
 Currently there is a simple implementation of the [i18n](https://github.com/svenfuchs/i18n) library that allows templates to be translated.
 
@@ -36,7 +40,7 @@ Currently there is a simple implementation of the [i18n](https://github.com/sven
 
 You need the following directory structure inside of the folder that relates to the `base_path`:
 
-```bash
+```
 components
 ├── locale
 │   ├── en.yml
@@ -49,7 +53,7 @@ The yaml configs must have the extension `.yml`.
 
 The yaml translations files must follow the following structure:
 
-```yaml
+```
 en:
 	template_name:
 		key: 'foo'
@@ -70,7 +74,7 @@ For each translation, a seperate model and view is needed.
 
 All that's needed in the model is to override the LOCALE constant:
 
-```rb
+```
 class TestModel < Alephant::Views::Base
   LOCALE = :cy
 end
@@ -82,7 +86,7 @@ The best approach with the templates when translations are needed, is to have a 
 
 In each view model, the following method is available for translations:
 
-```ruby
+```
 t 'my_key'
 ```
 
@@ -92,7 +96,7 @@ If we had a template called 'test_template.mustache' we would have the following
 
 >test_template.rb
 
-```ruby
+```
 def my_translation
 	t 'key'
 end
@@ -100,13 +104,13 @@ end
 
 >test_template.mustache
 
-```mustache
+```
 {{ my_translation }}
 ```
 
 >locale/en.yml
 
-```yaml
+```
 en:
     test_template:
 		key: 'A translation!'
@@ -118,7 +122,7 @@ By default, if the translation key doesn't exist then the translation key is use
 
 You can override this behaviour and provide a default:
 
-```ruby
+```
 def my_translation
 	t 'missing_key', :default => 'Some default'
 end
@@ -130,8 +134,10 @@ So if the key doesn't exists, then 'Some default' is the translation.
 
 ## Contributing
 
-1. Fork it ( http://github.com/bbc-news/alephant-renderer/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+1. [Fork it!](http://github.com/bbc-news/alephant-renderer/fork)
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Create new [Pull Request](https://github.com/BBC-News/alephant-renderer/pulls).
+
+Feel free to create an [issue](https://github.com/BBC-News/alephant-renderer/issues/new) if you find a bug.
