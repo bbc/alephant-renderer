@@ -22,7 +22,7 @@ Or install it yourself as:
 
 This gem requires you to have at least one component, which has within it at least one view/template pair.
 
-```
+```bash
 src
 ├── components
 │   ├── weather
@@ -36,7 +36,7 @@ src
 
 > daily_summary.rb
 
-```
+```ruby
 require 'alephant/renderer/views/html'
 require 'date'
 
@@ -57,14 +57,14 @@ end
 
 > daily_summary.mustache
 
-```
+```mustache
 Weather for {{ time }}
 {{ summary }} - {{ temp }}°
 ```
 
 ## Usage
 
-```
+```ruby
 require 'alephant/renderer'
 require 'json'
 
@@ -102,7 +102,7 @@ Currently there is a simple implementation of the [i18n](https://github.com/sven
 
 You need the following directory structure inside of the folder that relates to the `base_path`:
 
-```
+```bash
 components
 ├── locale
 │   ├── en.yml
@@ -115,15 +115,15 @@ The yaml configs must have the extension `.yml`.
 
 The yaml translations files must follow the following structure:
 
-```
+```yaml
 en:
   template_name:
-	key: 'foo'
-	sub:
-	  key: 'bar'
+    key: 'foo'
+    sub:
+      key: 'bar'
 
   another_template:
-	key: 'baz'
+    key: 'baz'
 ```
 
 The first node is the language code, then the next set of nodes are the names of the templates files that the translations apply to. This allows you to just reference the translation key in the templates without prefixing the name of the template.
@@ -136,7 +136,7 @@ For each translation, a seperate model and view is needed.
 
 All that's needed in the model is to override the LOCALE constant:
 
-```
+```ruby
 class TestModel < Alephant::Views::Base
   LOCALE = :cy
 end
@@ -148,7 +148,7 @@ The best approach with the templates when translations are needed, is to have a 
 
 In each view model, the following method is available for translations:
 
-```
+```ruby
 t 'my_key'
 ```
 
@@ -158,7 +158,7 @@ If we had a template called 'test_template.mustache' we would have the following
 
 >test_template.rb
 
-```
+```ruby
 def my_translation
   t 'key'
 end
@@ -166,13 +166,13 @@ end
 
 >test_template.mustache
 
-```
+```mustache
 {{ my_translation }}
 ```
 
 >locale/en.yml
 
-```
+```yaml
 en:
   test_template:
     key: 'A translation!'
@@ -184,7 +184,7 @@ By default, if the translation key doesn't exist then the translation key is use
 
 You can override this behaviour and provide a default:
 
-```
+```ruby
 def my_translation
   t 'missing_key', :default => 'Some default'
 end
