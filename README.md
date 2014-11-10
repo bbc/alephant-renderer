@@ -20,7 +20,47 @@ Or install it yourself as:
 
 ## Setup
 
-**TODO** - Add explanation of adding own views/templates
+This gem requires you to have at least one component, which has within it at least one view/template pair.
+
+```
+src
+├── components
+│   ├── weather
+│   │   ├── models
+│   │   │   ├── daily_summary.rb
+│   │   │   ├── weekly_summary.rb
+│   │   ├── templates
+│   │   │   ├── daily_summary.mustache
+│   │   │   ├── weekly_summary.mustache
+```
+
+> daily_summary.rb
+
+```
+require 'alephant/renderer/views/html'
+require 'date'
+
+class DailySummary < Alephant::Renderer::Views::Html
+  def temp
+    @data[:time].round 0
+  end
+
+  def time
+    DateTime.now.strftime "%d/%m/%Y %H:%M"
+  end
+
+  def summary
+    @data[:summary].capitalize
+  end
+end
+```
+
+> daily_summary.mustache
+
+```
+Weather for {{ time }}
+{{ summary }} - {{ temp }}°
+```
 
 ## Usage
 
@@ -28,11 +68,9 @@ Or install it yourself as:
 require 'alephant/renderer'
 require 'json'
 
-component_id = 'weather'
-
 config = {
-  :renderer_id => component_id,
-  :view_path   => '/path/to/views'
+  :renderer_id => 'weather',
+  :view_path   => 'src/components'
 }
 
 data = {
@@ -42,7 +80,7 @@ data = {
 
 Alephant::Renderer.create(
   config, data
-).views[component_id].render
+).views['daily_summary'].render
 ```
 
 **Note** - Within you application you will be most likely providing the *data* dynamically and thus will not require the JSON library.
@@ -57,8 +95,6 @@ The [alephant-publisher-request](https://github.com/BBC-News/alephant-publisher-
 4. Returns rendered template.
 
 ## Translations
-
-**TODO** - check that this section is still relevant.
 
 Currently there is a simple implementation of the [i18n](https://github.com/svenfuchs/i18n) library that allows templates to be translated.
 
@@ -81,13 +117,13 @@ The yaml translations files must follow the following structure:
 
 ```
 en:
-	template_name:
-		key: 'foo'
-		sub:
-			key: 'bar'
+  template_name:
+	key: 'foo'
+	sub:
+	  key: 'bar'
 
-	another_template:
-		key: 'baz'
+  another_template:
+	key: 'baz'
 ```
 
 The first node is the language code, then the next set of nodes are the names of the templates files that the translations apply to. This allows you to just reference the translation key in the templates without prefixing the name of the template.
@@ -124,7 +160,7 @@ If we had a template called 'test_template.mustache' we would have the following
 
 ```
 def my_translation
-	t 'key'
+  t 'key'
 end
 ```
 
@@ -138,8 +174,8 @@ end
 
 ```
 en:
-    test_template:
-		key: 'A translation!'
+  test_template:
+    key: 'A translation!'
 ```
 
 ##### Default
@@ -150,7 +186,7 @@ You can override this behaviour and provide a default:
 
 ```
 def my_translation
-	t 'missing_key', :default => 'Some default'
+  t 'missing_key', :default => 'Some default'
 end
 
 ```
