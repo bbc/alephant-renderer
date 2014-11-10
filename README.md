@@ -20,11 +20,32 @@ Or install it yourself as:
 
 ## Usage
 
+### Barebones
+
 ```
 require 'alephant/renderer'
+require 'json'
 
-# TODO - Batman!
+component_id = 'weather'
+
+config = {
+  :renderer_id => component_id,
+  :view_path   => '/path/to/views'
+}
+
+data = {
+  :summary => 'Light rain starting tonight.',
+  :temp    => '11.86'
+}.to_json
+
+Alephant::Renderer.create(
+  config, data
+).views[component_id].render
 ```
+
+**Note** - Within you application you will be most likely providing the *data* dynamically and thus will not require the JSON library.
+
+-------------------------------
 
 **TODO** - Add explanation of adding own views/templates
 
