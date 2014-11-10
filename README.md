@@ -12,15 +12,17 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    bundle
 
 Or install it yourself as:
 
-    $ gem install alephant-renderer
+    gem install alephant-renderer
+
+## Setup
+
+**TODO** - Add explanation of adding own views/templates
 
 ## Usage
-
-### Barebones
 
 ```
 require 'alephant/renderer'
@@ -45,11 +47,14 @@ Alephant::Renderer.create(
 
 **Note** - Within you application you will be most likely providing the *data* dynamically and thus will not require the JSON library.
 
--------------------------------
+#### Example Application
 
-**TODO** - Add explanation of adding own views/templates
+The [alephant-publisher-request](https://github.com/BBC-News/alephant-publisher-request) gem is an example of an application which utilises this gem. Overview of process:
 
-**TODO** - Show examples of how alephant-publisher-request uses gem.
+1. Receives request from user, via [Rack](http://rack.github.io/).
+2. Fetches required data dynamically from a given API.
+3. Renders specified component using data.
+4. Returns rendered template.
 
 ## Translations
 
