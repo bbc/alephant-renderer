@@ -17,7 +17,7 @@ module Alephant
       end
 
       def base_path=(path)
-        @base_path = File.directory?(path) ? path : (raise "Invalid path: '#{path}'")
+        @base_path = File.directory?(path) ? path : raise_error(path)
       end
 
       def generate(data)
@@ -30,6 +30,11 @@ module Alephant
       end
 
       private
+
+      def raise_error(path)
+        raise "Invalid path: '#{path}'"
+        logger.metric({:name => "RenderViewMapperInvalidPath", :unit => "Count", :value => 1})
+      end
 
       def model(view_id, data)
         require model_location_for view_id
