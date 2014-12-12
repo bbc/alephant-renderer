@@ -1,5 +1,6 @@
 require 'alephant/renderer/version'
 require 'alephant/renderer/view_mapper'
+require 'alephant/logger'
 
 module Alephant
   module Renderer
@@ -8,6 +9,8 @@ module Alephant
     end
 
     class Renderer
+      include Logger
+
       attr_reader :config, :data
 
       def initialize(config, data)
@@ -22,6 +25,7 @@ module Alephant
       private
 
       def mapper
+        logger.info "Renderer#mapper: renderer id '#{config[:renderer_id]}', view path '#{config[:view_path]}'"
         @mapper ||= ViewMapper.new(
           config[:renderer_id],
           config[:view_path]
