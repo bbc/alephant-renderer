@@ -1,5 +1,6 @@
 require 'alephant/renderer/views'
 require 'hashie'
+require 'pathname'
 
 module Alephant
   module Renderer
