@@ -23,7 +23,7 @@ module Alephant
 
           def to_h
             whitelist.reduce({}) do |accum, method_key|
-              accum.tap { |a| a[method_key] = send(methods_key) }
+              accum.tap { |a| a[method_key] = send(method_key) }
             end
           end
 
