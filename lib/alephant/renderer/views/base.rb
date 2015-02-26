@@ -1,12 +1,12 @@
-require 'alephant/renderer/views'
-require 'hashie'
-require 'pathname'
+require "alephant/renderer/views"
+require "hashie"
+require "pathname"
 
 module Alephant
   module Renderer
     module Views
       module Base
-        def self.included base
+        def self.included(base)
           base.send :include, InstanceMethods
           base.extend ClassMethods
         end
@@ -22,11 +22,16 @@ module Alephant
           end
 
           def to_h
-            whitelist.reduce({}) { |m,s| m.tap { |m| m[s] = self.send(s) } }
+            whitelist.reduce({}) do |accum, method_key|
+              accum.tap { |a| a[method_key] = send(methods_key) }
+            end
           end
 
           def setup; end
-          def whitelist; [] end
+
+          def whitelist
+            []
+          end
         end
 
         module ClassMethods
@@ -34,7 +39,7 @@ module Alephant
 
           def inherited(subclass)
             current_dir = File.dirname(caller.first[/\/[^:]+/])
-            dir_path    = Pathname.new(File.join(current_dir,'..')).realdirpath
+            dir_path    = Pathname.new(File.join(current_dir, "..")).realdirpath
 
             subclass.base_path = dir_path.to_s
 
