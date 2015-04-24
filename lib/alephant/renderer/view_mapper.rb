@@ -32,7 +32,7 @@ module Alephant
       private
 
       def raise_error(path)
-        logger.metric({:name => "RenderViewMapperInvalidPath", :unit => "Count", :value => 1})
+        logger.metric("ViewMapperInvalidPath")
         raise "Invalid path: '#{path}'"
       end
 
