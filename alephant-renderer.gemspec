@@ -6,8 +6,8 @@ require 'alephant/renderer/version'
 Gem::Specification.new do |spec|
   spec.name          = "alephant-renderer"
   spec.version       = Alephant::Renderer::VERSION
-  spec.authors       = ["Robert Kenny"]
-  spec.email         = ["kenoir@gmail.com"]
+  spec.authors       = ["BBC News"]
+  spec.email         = ["FutureMediaNewsRubyGems@bbc.co.uk"]
   spec.summary       = "Render HTML snippets"
   spec.homepage      = ""
   spec.license       = "MIT"
