@@ -35,7 +35,7 @@ module Alephant
         raise("Invalid path: '#{path}'").tap do
           logger.metric("ViewMapperInvalidPath")
           logger.error(
-            "event"  => "ViewMapperBasePathInvalid",
+            "event"  => "ViewMapperBasePathInvalidFound",
             "path"   => path,
             "method" => "#{self.class}#raise_error"
           )
