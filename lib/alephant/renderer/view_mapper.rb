@@ -32,8 +32,14 @@ module Alephant
       private
 
       def raise_error(path)
-        logger.metric("ViewMapperInvalidPath")
-        raise "Invalid path: '#{path}'"
+        raise("Invalid path: '#{path}'").tap do
+          logger.metric("ViewMapperInvalidPath")
+          logger.error(
+            "event"  => "ViewMapperBasePathInvalid",
+            "path"   => path,
+            "method" => "#{self.class}#raise_error"
+          )
+        end
       end
 
       def model(view_id, data)

@@ -1,6 +1,10 @@
 require 'alephant/renderer/version'
 require 'alephant/renderer/view_mapper'
 require 'alephant/logger'
+require 'alephant/logger/json'
+
+json_driver = Alephant::Logger::JSON.new(ENV["APP_LOG_LOCATION"] ||= "app.log")
+Alephant::Logger.setup json_driver
 
 module Alephant
   module Renderer
@@ -25,11 +29,17 @@ module Alephant
       private
 
       def mapper
-        logger.info "Renderer#mapper: renderer id '#{config[:renderer_id]}', view path '#{config[:view_path]}'"
         @mapper ||= ViewMapper.new(
           config[:renderer_id],
           config[:view_path]
-        )
+        ).tap do
+          logger.info(
+            "event"      => "ViewMapperCreated",
+            "rendererId" => config[:renderer_id],
+            "viewPath"   => config[:view_path],
+            "method"     => "#{self.class}#mapper"
+          )
+        end
       end
     end
   end
