@@ -1,5 +1,5 @@
-require 'alephant/renderer/views/base'
-require 'json'
+require "alephant/renderer/views/base"
+require "json"
 
 module Alephant
   module Renderer
@@ -12,9 +12,8 @@ module Alephant
         end
 
         def render
-          JSON.generate(to_h)
+          ::JSON.generate to_h
         end
-
       end
     end
   end

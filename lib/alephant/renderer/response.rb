@@ -4,7 +4,7 @@ module Alephant
   module Renderer
     class Response < Struct.new(:content)
       def to_json
-        JSON.generate "content" => content
+        ::JSON.generate "content" => content
       end
     end
   end
