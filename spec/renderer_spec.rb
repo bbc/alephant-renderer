@@ -1,21 +1,21 @@
 require 'spec_helper'
 
 describe Alephant::Renderer do
-  let(:config) { 
+  let(:config) {
     {
-      renderer_id: 'foo',
+      renderer_id: 'foo-renderer',
       view_path: File.join(File.dirname(__FILE__), 'fixtures/components'),
     }
   }
-  let(:data) { {content: 'test'} } 
+  let(:data) { {content: 'test'} }
 
   describe '.create' do
     context 'using valid params' do
       let(:expected) { Alephant::Renderer::Renderer }
 
-      specify { 
+      specify {
         expect(subject.create(config, data)).to be_instance_of expected
-      } 
+      }
     end
   end
 
@@ -47,7 +47,7 @@ describe Alephant::Renderer do
         end
 
         it 'contains a View for `foo` model' do
-          expect(subject.views.key? 'foo').to be 
+          expect(subject.views.key? 'foo').to be
         end
 
         it 'contains a View for `json` model' do

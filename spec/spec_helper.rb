@@ -4,6 +4,7 @@ require 'pry'
 require "json"
 
 require 'alephant/renderer'
+require 'alephant/renderer/error/invalid_path'
 require 'alephant/renderer/views'
 require 'alephant/renderer/views/json'
 require 'alephant/renderer/views/html'
