@@ -1,3 +1,4 @@
+require_relative './error/invalid_path'
 require 'alephant/logger'
 
 module Alephant
@@ -31,7 +32,7 @@ module Alephant
       private
 
       def raise_error(path)
-        raise("Invalid path: '#{path}'").tap do
+        fail(Error::InvalidBasePath.new(path)).tap do
           logger.metric("ViewMapperInvalidPath")
           logger.error(
             "event"  => "ViewMapperBasePathInvalidFound",
