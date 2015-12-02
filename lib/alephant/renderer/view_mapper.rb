@@ -7,9 +7,8 @@ module Alephant
 
       DEFAULT_LOCATION = 'components'
 
-      def initialize(component_id, view_base_path=nil)
-        self.base_path = "#{view_base_path}/#{component_id}" unless view_base_path.nil?
-        @component_id = component_id
+      def initialize(renderer_id, view_base_path=nil)
+        self.base_path = "#{view_base_path}/#{renderer_id}" unless view_base_path.nil?
       end
 
       def base_path
