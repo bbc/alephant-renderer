@@ -1,7 +1,6 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'alephant/renderer/version'
+require "alephant/renderer/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "alephant-renderer"
@@ -29,8 +28,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rake-rspec"
 
-  spec.add_runtime_dependency 'i18n'
-  spec.add_runtime_dependency 'mustache', '~> 0.99.5'
-  spec.add_runtime_dependency 'alephant-logger'
-  spec.add_runtime_dependency 'hashie'
+  spec.add_runtime_dependency "i18n"
+  spec.add_runtime_dependency "mustache", "~> 0.99.5"
+  spec.add_runtime_dependency "alephant-logger"
+  spec.add_runtime_dependency "hashie"
 end

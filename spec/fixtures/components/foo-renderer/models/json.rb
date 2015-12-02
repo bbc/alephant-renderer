@@ -1,8 +1,7 @@
 module MyApp
   class Json < Alephant::Renderer::Views::Json
-
     def whitelist
-      ['item1', 'item2']
+      ["item1", "item2"]
     end
 
     def item1
@@ -16,6 +15,5 @@ module MyApp
     def baz
       @data[:baz]
     end
-
   end
 end

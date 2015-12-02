@@ -1,6 +1,6 @@
-require 'alephant/renderer/version'
-require 'alephant/renderer/view_mapper'
-require 'alephant/logger'
+require "alephant/renderer/version"
+require "alephant/renderer/view_mapper"
+require "alephant/logger"
 
 module Alephant
   module Renderer
