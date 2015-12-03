@@ -1,15 +1,17 @@
-require_relative './error/invalid_path'
-require 'alephant/logger'
+require "alephant/renderer/error/invalid_path"
+require "alephant/logger"
 
 module Alephant
   module Renderer
     class ViewMapper
       include Logger
 
-      DEFAULT_LOCATION = 'components'
+      DEFAULT_LOCATION = "components"
 
       def initialize(renderer_id, view_base_path=nil)
-        self.base_path = "#{view_base_path}/#{renderer_id}" unless view_base_path.nil?
+        unless view_base_path.nil?
+          self.base_path = "#{view_base_path}/#{renderer_id}"
+        end
       end
 
       def base_path
@@ -48,7 +50,7 @@ module Alephant
       end
 
       def model_location_for(view_id)
-        File.join(base_path, 'models', "#{view_id}.rb")
+        File.join(base_path, "models", "#{view_id}.rb")
       end
 
       def model_locations
@@ -60,9 +62,8 @@ module Alephant
       end
 
       def model_id_for(location)
-        location.split('/').last.sub(/\.rb/, '')
+        location.split("/").last.sub(/\.rb/, "")
       end
-
     end
   end
 end

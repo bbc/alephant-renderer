@@ -1,9 +1,9 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Alephant::Renderer::ViewMapper do
   let(:renderer_id) { "foo-renderer" }
   let(:data) {{ :foo => :bar }}
-  let(:path) { File.join(File.dirname(__FILE__), 'fixtures/components') }
+  let(:path) { File.join(File.dirname(__FILE__), "fixtures/components") }
 
   subject { Alephant::Renderer::ViewMapper }
 
@@ -11,12 +11,12 @@ describe Alephant::Renderer::ViewMapper do
     context "view_base_path = invalid_path" do
       it "should raise an error" do
         expect {
-          subject.new(renderer_id, './invalid_path')
+          subject.new(renderer_id, "./invalid_path")
         }.to raise_error ::Alephant::Renderer::Error::InvalidBasePath
       end
     end
 
-    context "view_base_path = '.'" do
+    context "view_base_path = ." do
       it "sets base_path" do
         expect(
           subject.new(renderer_id, path).base_path

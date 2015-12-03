@@ -1,6 +1,6 @@
-require 'alephant/renderer/views/base'
-require 'mustache'
-require 'i18n'
+require "alephant/renderer/views/base"
+require "mustache"
+require "i18n"
 
 module Alephant
   module Renderer
@@ -31,8 +31,8 @@ module Alephant
           Dir[
             File.join(
               Pathname.new(base_path).parent,
-              'locale',
-              '*.yml')
+              "locale",
+              "*.yml")
           ]
           .flatten
           .uniq
@@ -50,13 +50,16 @@ module Alephant
         end
 
         def template_name
-          Mustache.underscore(self.class.to_s).split('/').last
+          Mustache.underscore(self.class.to_s).split("/").last
         end
 
         def template_file
-          File.join(base_path,'templates',"#{template_name}.#{template_extension}")
+          File.join(
+            base_path,
+            "templates",
+            "#{template_name}.#{template_extension}"
+          )
         end
-
       end
     end
   end
