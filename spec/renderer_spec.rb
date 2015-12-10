@@ -43,11 +43,11 @@ describe Alephant::Renderer do
 
       context "using `bar`, `foo`, `json` models" do
         it "contains a View for `bar` model" do
-          expect(subject.views.key? "bar").to be
+          expect(subject.views.key? "BAR_ABC").to be
         end
 
         it "contains a View for `foo` model" do
-          expect(subject.views.key? "foo").to be
+          expect(subject.views.key? "foo_xyz").to be
         end
 
         it "contains a View for `json` model" do
