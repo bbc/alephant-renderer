@@ -2,13 +2,13 @@ require "spec_helper"
 require "fixtures/components/foo-renderer/models/json"
 
 describe Alephant::Renderer::Views::Json do
-  let(:data) {
+  let(:data) do
     {
       "foo" => "a",
       "bar" => "b",
       "baz" => "c"
     }
-  }
+  end
 
   describe "#content_type" do
     it "sets the correct content type" do

@@ -34,8 +34,8 @@ module Alephant
               "locale",
               "*.yml")
           ]
-          .flatten
-          .uniq
+            .flatten
+            .uniq
         end
 
         def t(key, params = {})

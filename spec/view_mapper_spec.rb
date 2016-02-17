@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe Alephant::Renderer::ViewMapper do
   let(:renderer_id) { "foo-renderer" }
-  let(:data) {{ :foo => :bar }}
+  let(:data) { { :foo => :bar } }
   let(:path) { File.join(File.dirname(__FILE__), "fixtures/components") }
 
   subject { Alephant::Renderer::ViewMapper }

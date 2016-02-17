@@ -4,7 +4,7 @@ describe Alephant::Renderer do
   let(:config) {
     {
       :renderer_id => "foo-renderer",
-      :view_path   => File.join(File.dirname(__FILE__), "fixtures/components"),
+      :view_path   => File.join(File.dirname(__FILE__), "fixtures/components")
     }
   }
   let(:data) { { :content => "test" } }

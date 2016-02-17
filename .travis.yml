@@ -1,9 +1,9 @@
 language: ruby
 rvm:
-  - "jruby"
+ - 2.1.2
 notifications:
   email:
     recipients:
-      - kenoir@gmail.com
+      - FutureMediaNewsRubyGems@bbc.co.uk
     on_failure: change
     on_success: never
