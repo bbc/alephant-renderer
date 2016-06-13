@@ -18,8 +18,6 @@ module Alephant
             @data = Hashie::Mash.new data
             @base_path = self.class.base_path
 
-            load_translations_from(base_path)
-
             setup
           end
 
@@ -33,29 +31,6 @@ module Alephant
 
           def whitelist
             []
-          end
-
-          private
-
-          def load_translations_from(base_path)
-            if I18n.load_path.empty?
-              I18n.config.enforce_available_locales = false
-              I18n.load_path = i18n_load_path_from(base_path)
-              I18n.backend.load_translations
-            end
-          end
-
-          def i18n_load_path_from(base_path)
-            Dir[
-              File.join(Pathname.new(base_path).parent, "locale", "*.yml")
-            ].flatten.uniq
-          end
-
-          def t(key, params = {})
-            I18n.locale = locale
-            prefix = /\/([^\/]+)\.mustache/.match(template_file)[1]
-            params[:default] = key unless params[:default]
-            I18n.translate("#{prefix}.#{key}", params)
           end
         end
 

@@ -10,6 +10,7 @@ module Alephant
 
         def setup
           @content_type = "text/html"
+          load_translations_from base_path
         end
 
         def locale
@@ -17,6 +18,32 @@ module Alephant
         end
 
         private
+
+        def load_translations_from(base_path)
+          if I18n.load_path.empty?
+            I18n.config.enforce_available_locales = false
+            I18n.load_path = i18n_load_path_from(base_path)
+            I18n.backend.load_translations
+          end
+        end
+
+        def i18n_load_path_from(base_path)
+          Dir[
+            File.join(
+              Pathname.new(base_path).parent,
+              "locale",
+              "*.yml")
+          ]
+          .flatten
+          .uniq
+        end
+
+        def t(key, params = {})
+          I18n.locale = locale
+          prefix = /\/([^\/]+)\.mustache/.match(template_file)[1]
+          params.merge! :default => key unless params[:default]
+          translation = I18n.translate("#{prefix}.#{key}", params)
+        end
 
         def template
           @template_string ||= File.open(template_file).read
