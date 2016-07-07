@@ -1,64 +1,43 @@
 require "alephant/renderer/views/base"
-require "mustache"
-require "i18n"
+require "alephant/renderer/engine/mustache"
+require "alephant/renderer/i18n/locale_component_yaml"
 
 module Alephant
   module Renderer
     module Views
-      class Html < Mustache
+      class Html
         include ::Alephant::Renderer::Views::Base
 
         def setup
           @content_type = "text/html"
-          load_translations_from base_path
+          @translator = translator
+          @renderer = renderer_engine
+        end
+
+        def translator
+          Alephant::Renderer::I18n::LocaleComponentYaml.new(base_path, locale)
+        end
+
+        def renderer_engine
+          Alephant::Renderer::Engine::Mustache.new(template_name)
+        end
+
+        def t(key, params = {})
+          @translator.t(key, params)
         end
 
         def locale
           :en
         end
 
+        def render
+          @renderer.render Hash(self)
+        end
+
         private
-
-        def load_translations_from(base_path)
-          if I18n.load_path.empty?
-            I18n.config.enforce_available_locales = false
-            I18n.load_path = i18n_load_path_from(base_path)
-            I18n.backend.load_translations
-          end
-        end
-
-        def i18n_load_path_from(base_path)
-          Dir[
-            File.join(
-              Pathname.new(base_path).parent,
-              "locale",
-              "*.yml")
-          ]
-          .flatten
-          .uniq
-        end
-
-        def t(key, params = {})
-          I18n.locale = locale
-          prefix = /\/([^\/]+)\.mustache/.match(template_file)[1]
-          params.merge! :default => key unless params[:default]
-          translation = I18n.translate("#{prefix}.#{key}", params)
-        end
-
-        def template
-          @template_string ||= File.open(template_file).read
-        end
 
         def template_name
           Mustache.underscore(self.class.to_s).split("/").last
-        end
-
-        def template_file
-          File.join(
-            base_path,
-            "templates",
-            "#{template_name}.#{template_extension}"
-          )
         end
       end
     end
