@@ -38,7 +38,7 @@ module Alephant
           attr_accessor :base_path
 
           def inherited(subclass)
-            current_dir = File.dirname(caller.first[/\/[^:]+/])
+            current_dir = File.dirname(caller.first[%r{/[^:]+}])
             dir_path    = Pathname.new(File.join(current_dir, "..")).realdirpath
 
             subclass.base_path = dir_path.to_s
