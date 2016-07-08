@@ -4,9 +4,10 @@ module Alephant
   module Renderer
     module Engine
       class Mustache
-        def initialize(namespace)
+        def initialize(base_path, namespace)
           @mustache = ::Mustache.new
           @namespace = namespace
+          @base_path = base_path
         end
 
         def template
@@ -15,9 +16,9 @@ module Alephant
 
         def template_file
           File.join(
-            base_path,
+            @base_path,
             "templates",
-            "#{namespace}.#{template_extension}"
+            "#{@namespace}.#{::Mustache.template_extension}"
           )
         end
 
