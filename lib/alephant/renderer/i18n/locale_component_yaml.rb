@@ -4,16 +4,17 @@ module Alephant
   module Renderer
     module I18n
       class LocaleComponentYaml
-        def initialize(base_path, locale)
+        def initialize(base_path, locale, namespace)
           load_translations_from base_path
           @locale = locale
+          @namespace = namespace
         end
 
         def t(key, params = {})
           i18n_lib.locale = @locale
-          prefix = %r{/([^\/]+)\.mustache}.match(template_file)[1]
           params[:default] = key unless params[:default]
-          i18n_lib.translate("#{prefix}.#{key}", params)
+          params[:scope] = @namespace unless params[:scope]
+          i18n_lib.translate(key, params)
         end
 
         private
@@ -34,8 +35,7 @@ module Alephant
 
         def translation_filename(base_path)
           File.join(
-            Pathname.new(base_path).parent,
-            "locale",
+            base_path,
             "*.yml")
         end
 

@@ -15,7 +15,16 @@ module Alephant
         end
 
         def translator
-          Alephant::Renderer::I18n::LocaleComponentYaml.new(base_path, locale)
+          Alephant::Renderer::I18n::LocaleComponentYaml.new(
+            translations_path,
+            locale,
+            template_name)
+        end
+
+        def translations_path
+          File.join(
+            Pathname.new(base_path).parent,
+            "locale")
         end
 
         def renderer_engine
