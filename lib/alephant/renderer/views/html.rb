@@ -14,6 +14,12 @@ module Alephant
           @renderer = renderer_engine
         end
 
+        def render
+          @renderer.render to_h
+        end
+
+        private
+
         def translator
           Alephant::Renderer::I18n::LocaleComponentYaml.new(
             translations_path,
@@ -38,12 +44,6 @@ module Alephant
         def locale
           :en
         end
-
-        def render
-          @renderer.render to_h
-        end
-
-        private
 
         def template_name
           Mustache.underscore(self.class.to_s).split("/").last
