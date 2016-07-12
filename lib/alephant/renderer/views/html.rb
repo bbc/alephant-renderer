@@ -28,7 +28,7 @@ module Alephant
         end
 
         def renderer_engine
-          Alephant::Renderer::Engine::Mustache.new(template_name)
+          Alephant::Renderer::Engine::Mustache.new(base_path, template_name)
         end
 
         def t(key, params = {})
@@ -40,7 +40,7 @@ module Alephant
         end
 
         def render
-          @renderer.render Hash(self)
+          @renderer.render to_h
         end
 
         private
