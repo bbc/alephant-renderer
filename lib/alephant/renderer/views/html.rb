@@ -8,6 +8,10 @@ module Alephant
       class Html
         include ::Alephant::Renderer::Views::Base
 
+        class << self
+          attr_accessor :template_path
+        end
+
         def setup
           @content_type = "text/html"
           @translator = translator
@@ -15,7 +19,7 @@ module Alephant
         end
 
         def render
-          @renderer.render to_h
+          @renderer.render self
         end
 
         private
