@@ -12,8 +12,8 @@ module Alephant
           @mustache.class.template_path = partials_path || default_shared_template_path
         end
 
-        def template
-          @template_string ||= File.open(template_file).read
+        def render(data)
+          @mustache.render(template, data)
         end
 
         def default_shared_template_path
@@ -24,12 +24,14 @@ module Alephant
           File.join(@base_path, 'templates')
         end
 
+        private
+
         def template_file
           File.join(template_path, "#{@namespace}.#{::Mustache.template_extension}")
         end
 
-        def render(data)
-          @mustache.render(template, data)
+        def template
+          @template_string ||= File.open(template_file).read
         end
       end
     end
