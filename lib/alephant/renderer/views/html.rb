@@ -1,6 +1,6 @@
-require "alephant/renderer/views/base"
-require "alephant/renderer/engine/mustache"
-require "alephant/renderer/i18n/locale_component_yaml"
+require 'alephant/renderer/views/base'
+require 'alephant/renderer/engine/mustache'
+require 'alephant/renderer/i18n/locale_component_yaml'
 
 module Alephant
   module Renderer
@@ -9,11 +9,12 @@ module Alephant
         include ::Alephant::Renderer::Views::Base
 
         class << self
+          # FIXME: remove this when we've gotten rid of all of the `self.template_path` directives
           attr_accessor :template_path
         end
 
         def setup
-          @content_type = "text/html"
+          @content_type = 'text/html'
           @translator = translator
           @renderer = renderer_engine
         end
@@ -26,15 +27,15 @@ module Alephant
 
         def translator
           Alephant::Renderer::I18n::LocaleComponentYaml.new(
-            translations_path,
             locale,
-            template_name)
+            template_name,
+            translations_path)
         end
 
         def translations_path
           File.join(
             Pathname.new(base_path).parent,
-            "locale")
+            'locale')
         end
 
         def renderer_engine
@@ -50,7 +51,7 @@ module Alephant
         end
 
         def template_name
-          Mustache.underscore(self.class.to_s).split("/").last
+          Mustache.underscore(self.class.to_s).split('/').last
         end
       end
     end
