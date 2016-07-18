@@ -16,7 +16,7 @@ module Alephant
         end
 
         def default_shared_partial_path
-          File.join(@base_path, '/../lib/templates')
+          File.join(@base_path, '../lib/templates')
         end
 
         def template_path
