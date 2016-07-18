@@ -6,4 +6,4 @@ cy:
   other_namespace:
     some_string:
       one: "another string"
-      other: "another strings"
+      other: "another %{count} strings"

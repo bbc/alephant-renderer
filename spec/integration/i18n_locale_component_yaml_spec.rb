@@ -22,5 +22,14 @@ describe Alephant::Renderer::I18n::LocaleComponentYaml do
       }
       expect(subject.t(:some_string, params)).to eq('another string')
     end
+
+    it 'should return a pluralized translation with variable substitution' do
+      params = {
+        locale: 'cy',
+        scope:  'other_namespace',
+        count:  2
+      }
+      expect(subject.t(:some_string, params)).to eq('another 2 strings')
+    end
   end
 end
