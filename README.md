@@ -134,11 +134,13 @@ For each translation, a seperate model and view is needed.
 
 #### Model
 
-All that's needed in the model is to override the LOCALE constant:
+A model should override the `locale` method:
 
 ```ruby
-class TestModel < Alephant::Views::Base
-  LOCALE = :cy
+class TestModel < Alephant::Views::HTML
+  def locale
+      :cy
+  end
 end
 ```
 
@@ -178,20 +180,76 @@ en:
     key: 'A translation!'
 ```
 
-##### Default
+##### Other options
 
-By default, if the translation key doesn't exist then the translation key is used as the translation.
+The `t()` method takes a second hash argument for accessing other I18n features. Below are a few of the more common uses of this argument.
 
-You can override this behaviour and provide a default:
+By default, if the translation key doesn't exist then the translation key is used as the translation. You can override this behaviour and provide an explicit default:
 
 ```ruby
 def my_translation
-  t 'missing_key', :default => 'Some default'
+  t 'missing_key', default: 'Some default'
 end
-
 ```
 
-So if the key doesn't exists, then 'Some default' is the translation.
+Plurality can also be handled, including support for languages with multiple pluralities. You would define your translation in the yaml file like this:
+
+```yaml
+en:
+    test_template:
+        pluralized_key:
+            one: 'Singular string'
+            other: 'Plural string'
+```
+and the code would look like:
+```ruby
+t 'pluralized_key', count: @num_of_things
+```
+
+You can force it to use a different locale if you need:
+```ruby
+t 'some_key', locale: :cy
+```
+
+You can use strings from another subsection of the translations. E.g. if your renderer was currently _myRenderer_ and your translations yaml looked like this:
+```yaml
+en:
+    myRenderer:
+        'some_key': 'some string'
+    general:
+        'another_key': 'another string'
+```
+You can do this in code:
+```ruby
+t 'another_key', scope: 'general'
+```
+
+You can do simple variable substitution, as often dynamic data can be in a different position in different strings. Your yaml might look like:
+```yaml
+en:
+    myRenderer:
+        'some_key': 'some %{insert} string'
+```
+and the code looks like:
+```ruby
+t 'some_key', insert: 'text inserted into a'
+```
+
+## Templates
+
+The template engine is built into the Alephant::Views::HTML class. Create methods that correspond to variables, and they will become available to the template.
+
+### Paths
+
+There are two template paths in Alephant, the template path and the partials path. By default in HTML renderers, the template path is `../templates/` from your model, and the partials path is `../../lib/templates` from your model. You can change either of these pathing strategies by overridding the default renderer_engine instantiation.
+
+```ruby
+def renderer_engine
+  partial_path = File.join(base_path + '/templates/')
+  Alephant::Renderer::Engine::Mustache.new(base_path, template_name, partial_path)
+end
+```
+In the above example, base_path is the parent of the current model folder, so this will make the partials path equal to the template path.
 
 
 ## Contributing
