@@ -1,6 +1,6 @@
-require "alephant/renderer/views"
-require "hashie"
-require "pathname"
+require 'alephant/renderer/views'
+require 'hashie'
+require 'pathname'
 
 module Alephant
   module Renderer
@@ -39,7 +39,7 @@ module Alephant
 
           def inherited(subclass)
             current_dir = File.dirname(caller.first[%r{/[^:]+}])
-            dir_path    = Pathname.new(File.join(current_dir, "..")).realdirpath
+            dir_path    = Pathname.new(File.join(current_dir, '..')).realdirpath
 
             subclass.base_path = dir_path.to_s
 
