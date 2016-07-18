@@ -245,7 +245,7 @@ There are two template paths in Alephant, the template path and the partials pat
 
 ```ruby
 def renderer_engine
-  partial_path = File.join(base_path + '/templates/')
+  partial_path = File.join(base_path, 'templates/')
   Alephant::Renderer::Engine::Mustache.new(base_path, template_name, partial_path)
 end
 ```
