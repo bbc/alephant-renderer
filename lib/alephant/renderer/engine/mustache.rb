@@ -7,16 +7,15 @@ module Alephant
         def initialize(base_path, namespace, partials_path = nil)
           @namespace = namespace
           @base_path = base_path
-
-          @mustache = ::Mustache.new
-          @mustache.class.template_path = partials_path || default_shared_template_path
+          @partial_path = partials_path || default_shared_partial_path
         end
 
         def render(data)
-          @mustache.render(template, data)
+          mustache.template_path = @partial_path
+          mustache.render(template, data)
         end
 
-        def default_shared_template_path
+        def default_shared_partial_path
           File.join(@base_path, '/../lib/templates')
         end
 
@@ -32,6 +31,10 @@ module Alephant
 
         def template
           @template_string ||= File.open(template_file).read
+        end
+
+        def mustache
+          ::Mustache
         end
       end
     end
