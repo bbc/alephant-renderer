@@ -1,0 +1,9 @@
+en:
+  my_namespace:
+    some_string: "some string"
+
+cy:
+  other_namespace:
+    some_string:
+      one: "another string"
+      other: "another %{count} strings"
