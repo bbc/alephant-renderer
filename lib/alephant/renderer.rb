@@ -1,6 +1,6 @@
-require "alephant/renderer/version"
-require "alephant/renderer/view_mapper"
-require "alephant/logger"
+require 'alephant/renderer/version'
+require 'alephant/renderer/view_mapper'
+require 'alephant/logger'
 
 module Alephant
   module Renderer
@@ -30,10 +30,10 @@ module Alephant
           config[:view_path]
         ).tap do
           logger.info(
-            "event"      => "ViewMapperCreated",
-            "rendererId" => config[:renderer_id],
-            "viewPath"   => config[:view_path],
-            "method"     => "#{self.class}#mapper"
+            'event'      => 'ViewMapperCreated',
+            'rendererId' => config[:renderer_id],
+            'viewPath'   => config[:view_path],
+            'method'     => "#{self.class}#mapper"
           )
         end
       end

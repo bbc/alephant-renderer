@@ -35,7 +35,8 @@ module Alephant
         def translation_filename
           File.join(
             translations_path,
-            '*.yml')
+            '*.yml'
+          )
         end
 
         def translations_path

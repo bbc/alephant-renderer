@@ -241,7 +241,7 @@ The template engine is built into the Alephant::Views::HTML class. Create method
 
 ### Paths
 
-There are two template paths in Alephant, the template path and the partials path. By default in HTML renderers, the template path is `../templates/` from your model, and the partials path is `../../lib/templates` from your model. You can change either of these pathing strategies by overridding the default renderer_engine instantiation.
+There are two template paths in Alephant, the template path and the partials path. By default in HTML renderers, the template path is `../templates/` from your model, and the partials path is `../../lib/templates` from your model. You can change either of these pathing strategies by overriding the default renderer_engine instantiation.
 
 ```ruby
 def renderer_engine
