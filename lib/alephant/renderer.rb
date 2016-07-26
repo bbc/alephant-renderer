@@ -25,16 +25,15 @@ module Alephant
       private
 
       def mapper
-        @mapper ||= ViewMapper.new(
-          config[:renderer_id],
-          config[:view_path]
-        ).tap do
+        @mapper ||= begin
           logger.info(
-            'event'      => 'ViewMapperCreated',
-            'rendererId' => config[:renderer_id],
-            'viewPath'   => config[:view_path],
-            'method'     => "#{self.class}#mapper"
+            event:      :ViewMapperCreated,
+            rendererId: config[:renderer_id],
+            viewPath:   config[:view_path],
+            method:     "#{self.class}#mapper"
           )
+
+          ViewMapper.new(config[:renderer_id], config[:view_path])
         end
       end
     end

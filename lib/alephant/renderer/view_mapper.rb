@@ -9,9 +9,8 @@ module Alephant
       DEFAULT_LOCATION = 'components'.freeze
 
       def initialize(renderer_id, view_base_path = nil)
-        unless view_base_path.nil?
-          self.base_path = "#{view_base_path}/#{renderer_id}"
-        end
+        return unless view_base_path.nil?
+        self.base_path = "#{view_base_path}/#{renderer_id}"
       end
 
       def base_path
@@ -24,24 +23,22 @@ module Alephant
 
       def generate(data)
         model_locations.reduce({}) do |obj, file|
-          obj.tap do |o|
-            model_id = model_id_for file
-            o[model_id] = model(model_id, data)
-          end
+          model_id      = model_id_for(file)
+          obj[model_id] = model(model_id, data)
+          obj
         end
       end
 
       private
 
       def raise_error(path)
-        raise(Error::InvalidBasePath.new(path)).tap do
-          logger.metric('ViewMapperInvalidPath')
-          logger.error(
-            'event'  => 'ViewMapperBasePathInvalidFound',
-            'path'   => path,
-            'method' => "#{self.class}#raise_error"
-          )
-        end
+        logger.metric('ViewMapperInvalidPath')
+        logger.error(
+          event:  :ViewMapperBasePathInvalidFound,
+          path:   path,
+          method: "#{self.class}#raise_error"
+        )
+        raise(Error::InvalidBasePath.new(path))
       end
 
       def model(view_id, data)
