@@ -1,7 +1,7 @@
 module MyApp
   class Json < Alephant::Renderer::Views::Json
     def whitelist
-      ["item1", "item2"]
+      %w(item1 item2)
     end
 
     def item1

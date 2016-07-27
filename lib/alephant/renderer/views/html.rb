@@ -29,13 +29,15 @@ module Alephant
           Alephant::Renderer::I18n::LocaleComponentYaml.new(
             locale,
             template_name,
-            translations_path)
+            translations_path
+          )
         end
 
         def translations_path
           File.join(
             Pathname.new(base_path).parent,
-            'locale')
+            'locale'
+          )
         end
 
         def renderer_engine

@@ -1,10 +1,16 @@
-require "json"
+require 'json'
 
 module Alephant
   module Renderer
-    class Response < Struct.new(:content)
+    class Response
+      attr_accessor :content
+
+      def initialize(content)
+        @content = content
+      end
+
       def to_json
-        ::JSON.generate "content" => content
+        ::JSON.generate 'content' => content
       end
     end
   end

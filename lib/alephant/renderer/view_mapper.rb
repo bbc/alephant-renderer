@@ -1,17 +1,15 @@
-require "alephant/renderer/error/invalid_path"
-require "alephant/logger"
+require 'alephant/renderer/error/invalid_path'
+require 'alephant/logger'
 
 module Alephant
   module Renderer
     class ViewMapper
       include Logger
 
-      DEFAULT_LOCATION = "components"
+      DEFAULT_LOCATION = 'components'.freeze
 
-      def initialize(renderer_id, view_base_path=nil)
-        unless view_base_path.nil?
-          self.base_path = "#{view_base_path}/#{renderer_id}"
-        end
+      def initialize(renderer_id, view_base_path = nil)
+        self.base_path = "#{view_base_path}/#{renderer_id}" unless view_base_path.nil?
       end
 
       def base_path
@@ -24,24 +22,22 @@ module Alephant
 
       def generate(data)
         model_locations.reduce({}) do |obj, file|
-          obj.tap do |o|
-            model_id = model_id_for file
-            o[model_id] = model(model_id, data)
-          end
+          model_id      = model_id_for(file)
+          obj[model_id] = model(model_id, data)
+          obj
         end
       end
 
       private
 
       def raise_error(path)
-        fail(Error::InvalidBasePath.new(path)).tap do
-          logger.metric("ViewMapperInvalidPath")
-          logger.error(
-            "event"  => "ViewMapperBasePathInvalidFound",
-            "path"   => path,
-            "method" => "#{self.class}#raise_error"
-          )
-        end
+        logger.metric('ViewMapperInvalidPath')
+        logger.error(
+          event:  :ViewMapperBasePathInvalidFound,
+          path:   path,
+          method: "#{self.class}#raise_error"
+        )
+        raise(Error::InvalidBasePath.new(path))
       end
 
       def model(view_id, data)
@@ -50,7 +46,7 @@ module Alephant
       end
 
       def model_location_for(view_id)
-        File.join(base_path, "models", "#{view_id}.rb")
+        File.join(base_path, 'models', "#{view_id}.rb")
       end
 
       def model_locations
@@ -62,7 +58,7 @@ module Alephant
       end
 
       def model_id_for(location)
-        location.split("/").last.sub(/\.rb/, "")
+        location.split('/').last.sub(/\.rb/, '')
       end
     end
   end

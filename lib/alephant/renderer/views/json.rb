@@ -1,5 +1,5 @@
-require "alephant/renderer/views/base"
-require "json"
+require 'alephant/renderer/views/base'
+require 'json'
 
 module Alephant
   module Renderer
@@ -8,7 +8,7 @@ module Alephant
         include ::Alephant::Renderer::Views::Base
 
         def setup
-          @content_type = "application/json"
+          @content_type = 'application/json'
         end
 
         def render
