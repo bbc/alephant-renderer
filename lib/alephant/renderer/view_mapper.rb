@@ -9,8 +9,7 @@ module Alephant
       DEFAULT_LOCATION = 'components'.freeze
 
       def initialize(renderer_id, view_base_path = nil)
-        return unless view_base_path.nil?
-        self.base_path = "#{view_base_path}/#{renderer_id}"
+        self.base_path = "#{view_base_path}/#{renderer_id}" unless view_base_path.nil?
       end
 
       def base_path
