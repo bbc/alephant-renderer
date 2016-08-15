@@ -37,7 +37,7 @@ module Alephant
         end
 
         def translations_path
-          @translations_path || './components/lib/locales'
+          @translations_path || './components/lib/locale'
         end
 
         def i18n_lib
