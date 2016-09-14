@@ -4,9 +4,7 @@ require 'fixtures/components/foo-renderer/models/waf'
 describe Alephant::Renderer::Views::Waf do
   let(:data) do
     {
-      'foo' => 'a',
-      'bar' => 'b',
-      'baz' => 'c'
+      'foo' => 'waf'
     }
   end
 
@@ -18,7 +16,7 @@ describe Alephant::Renderer::Views::Waf do
 
   describe '#render' do
     it 'returns generated envelope' do
-      expected_result = '{"head":["some/css/asset/path","some/js/asset/path"],"bodyInline":"<h1>Hello, I\'m a template</h1>","bodyLast":["some/thing/to/add/after/body","some/other/thing/to/add/after/body"]}'
+      expected_result = '{"head":["some/css/asset/path","some/js/asset/path"],"bodyInline":"<h1>Hello, I\'m a waf template</h1>","bodyLast":["some/thing/to/add/after/body","some/other/thing/to/add/after/body"]}'
       expect(MyApp::Waf.new(data).render).to eq(expected_result)
     end
   end
