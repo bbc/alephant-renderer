@@ -4,7 +4,7 @@ require 'json'
 module Alephant
   module Renderer
     module Views
-      class Waf < Json
+      class Envelope < Json
         def head
           []
         end

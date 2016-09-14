@@ -54,8 +54,8 @@ describe Alephant::Renderer do
           expect(subject.views.key?('json')).to be
         end
 
-        it 'contains a View for `waf` model' do
-          expect(subject.views.key?('waf')).to be
+        it 'contains a View for `envelope` model' do
+          expect(subject.views.key?('envelope')).to be
         end
       end
     end
