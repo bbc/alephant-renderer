@@ -35,9 +35,9 @@ describe Alephant::Renderer do
         expect(subject.views).to be_a Hash
       end
 
-      context 'using three Models' do
+      context 'using four Models' do
         it 'returns three Views in Hash' do
-          expect(subject.views.length).to eql 3
+          expect(subject.views.length).to eql 4
         end
       end
 
@@ -52,6 +52,10 @@ describe Alephant::Renderer do
 
         it 'contains a View for `json` model' do
           expect(subject.views.key?('json')).to be
+        end
+
+        it 'contains a View for `waf` model' do
+          expect(subject.views.key?('waf')).to be
         end
       end
     end
