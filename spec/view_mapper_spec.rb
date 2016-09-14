@@ -37,7 +37,7 @@ describe Alephant::Renderer::ViewMapper do
     it 'calls create_renderer for each template found' do
       expect(
         subject.new(renderer_id, path).generate(data).size
-      ).to eq(3)
+      ).to eq(4)
     end
   end
 end
