@@ -1,5 +1,5 @@
 module MyApp
-  class BarAbc < Alephant::Renderer::Views::Html
+  class Foo456Xyz < Alephant::Renderer::Views::Html
     def content
       @data[:content]
     end
