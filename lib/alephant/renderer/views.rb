@@ -12,8 +12,10 @@ module Alephant
 
         def underscorify(str)
           str.gsub(/::/, '/')
-             .gsub(/([A-Z]+)([A-Z][a-z])/, '\\1_\\2')
-             .gsub(/([a-z\d])([A-Z])/, '\\1_\\2')
+             .gsub(/([A-Z]+)([A-Z][a-z])([0-9]+)/, '\\1_\\2')
+             .gsub(/([a-z])([A-Z])/, '\\1_\\2')
+             .gsub(/([0-9])([a-zA-Z])/, '\\1_\\2')
+             .gsub(/([a-zA-Z])([0-9])/, '\\1_\\2')
              .tr('-', '_')
              .downcase
         end
