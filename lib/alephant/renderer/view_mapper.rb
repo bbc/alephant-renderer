@@ -1,4 +1,4 @@
-require 'alephant/renderer/error/invalid_path'
+require 'alephant/renderer/error/invalid_base_path'
 
 module Alephant
   module Renderer

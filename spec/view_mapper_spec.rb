@@ -8,10 +8,10 @@ describe Alephant::Renderer::ViewMapper do
   subject { Alephant::Renderer::ViewMapper }
 
   describe 'initialize(view_base_path)' do
-    context 'view_base_path = invalid_path' do
+    context 'view_base_path = invalid_base_path' do
       it 'should raise an error' do
         expect do
-          subject.new(renderer_id, './invalid_path')
+          subject.new(renderer_id, './invalid_base_path')
         end.to raise_error ::Alephant::Renderer::Error::InvalidBasePath
       end
     end
