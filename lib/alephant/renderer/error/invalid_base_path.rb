@@ -11,8 +11,8 @@ module Alephant
 
           logger.metric('ViewMapperInvalidPath')
           logger.error(
-            event:  :ViewMapperBasePathInvalidFound,
-            path:   path
+            event: :ViewMapperInvalidPath,
+            path:  path
           )
         end
       end
