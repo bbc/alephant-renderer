@@ -1,10 +1,8 @@
-require 'alephant/renderer/error/invalid_path'
-require 'alephant/logger'
+require 'alephant/renderer/error/invalid_base_path'
 
 module Alephant
   module Renderer
     class ViewMapper
-      include Logger
 
       DEFAULT_LOCATION = 'components'.freeze
 
@@ -17,7 +15,7 @@ module Alephant
       end
 
       def base_path=(path)
-        @base_path = File.directory?(path) ? path : raise_error(path)
+        @base_path = File.directory?(path) ? path : raise(Error::InvalidBasePath.new(path))
       end
 
       def generate(data)
@@ -29,16 +27,6 @@ module Alephant
       end
 
       private
-
-      def raise_error(path)
-        logger.metric('ViewMapperInvalidPath')
-        logger.error(
-          event:  :ViewMapperBasePathInvalidFound,
-          path:   path,
-          method: "#{self.class}#raise_error"
-        )
-        raise(Error::InvalidBasePath.new(path))
-      end
 
       def model(view_id, data)
         require model_location_for view_id
