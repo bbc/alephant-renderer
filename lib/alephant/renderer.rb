@@ -26,7 +26,7 @@ module Alephant
 
       def mapper
         @mapper ||= begin
-          logger.info(
+          logger.debug(
             event:      :ViewMapperCreated,
             rendererId: config[:renderer_id],
             viewPath:   config[:view_path],
